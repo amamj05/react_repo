@@ -32,7 +32,7 @@ function Nav(props) {
     let p = props.topics[i]
     lis.push(<li key={p.id}><a href={"/#/" + p.id} id={p.id} onClick={(e) => {
       e.preventDefault();
-      props.onChangeMode(e.target.id);
+      props.onChangeMode(Number(e.target.id));
     }}>{p.title}</a></li>);
   }
   return (
@@ -45,6 +45,7 @@ function Nav(props) {
 function App() {
 
 const [mode, setMode] = useState('Welcome');
+const [ _id, set_id] = useState(null);
   // let mode = 'Welcome';
   const topic = [
     { id: 1, title: "apple", body: "apple is ..." },
@@ -57,7 +58,17 @@ const [mode, setMode] = useState('Welcome');
   if ( mode === 'Welcome') {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
   } else if ( mode === 'READ') {
-    content = <Article title="CCCCHANGE" body="Hello, READ"></Article>;
+    let title, body = null;
+    
+    // set_id(iidd);
+    console.log(_id);
+    for( let i=0; i<topic.length; i++){
+      if(topic[i].id === _id){
+        title = topic[i].title;
+        body = topic[i].body;
+      }
+    }
+    content = <Article title={title} body={body}></Article>;
   }
 
 
@@ -72,6 +83,7 @@ const [mode, setMode] = useState('Welcome');
       <Nav topics={topic} onChangeMode={(iidd) => {
         // alert(iidd);
         setMode('READ');
+        set_id(iidd);
       }}></Nav>
       {content}
 
