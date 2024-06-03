@@ -26,7 +26,7 @@ function Nav(props) {
 
   for (let i = 0; i < props.topics.length; i++) {
     let p = props.topics[i]
-    lis.push(<li>{p.title}</li>);
+    lis.push(<li key={p.id}><a href={"/#/"+p.id}>{p.title}</a></li>);
   }
   return (
     <nav><ol>
