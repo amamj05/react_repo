@@ -59,6 +59,22 @@ function Create(props){
   )
 }
 
+function Update(props){
+  return (
+    <article>
+    <h2>Update</h2>
+    <form onSubmit={(e)=>{e.preventDefault();
+      const title = e.target.title.value;
+      const body = e.target.body.value;
+      
+    }}>
+      <p><input type="text" name="title" value={title}/></p>
+      <p><textarea  name="body" value={body}></textarea></p>
+      <input type="submit" value="Update"/>
+    </form>
+  </article>
+  )
+}
 
 
 function App() {
@@ -75,6 +91,7 @@ function App() {
   
 
   let content = null;
+  let updateButton = null;
 
   if (mode === 'Welcome') {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
@@ -89,9 +106,12 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+    updateButton = <li><a href="/update" onClick={(e)=>{
+      e.preventDefault(); setMode('UPDATE');}}>Update</a>
+      </li>;
   } else if (mode === 'Create'){
     content = <Create onCreate={(_title, _body)=>{
-      console.log(newId, _title, _body);
+      // console.log(newId, _title, _body);
       const newTopic = {id:newId , title:_title, body:_body };
       const newTopics = [...topic]
       setNewId(newId+1);
@@ -100,13 +120,15 @@ function App() {
       setMode('READ');
       set_id(newId);
     }}></Create>
+  } else if (mode === 'UPDATE'){
+    content = <Update></Update>
   }
 
 
   return (
     <div>
       <p>시작합니다</p>
-
+      <Header onChangeMode={()=>{setMode('Welcome');}} title="NO"></Header>
       <Header title="haha" onChangeMode={function () {
         // alert('Header');
         setMode('Welcome');
@@ -117,8 +139,13 @@ function App() {
         set_id(iidd);
       }}></Nav>
       {content}
-      <a href="/create" onClick={(e)=>{e.preventDefault(); setMode('Create'); }}
-      >Create</a>
+      <ul>
+        <li>
+          <a href="/create" onClick={(e)=>{e.preventDefault(); setMode('Create'); }}
+          >Create</a>
+        </li>
+        {updateButton}
+      </ul>
 
     </div>
   );
