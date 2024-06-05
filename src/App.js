@@ -60,16 +60,25 @@ function Create(props){
 }
 
 function Update(props){
+  const [newTitle, setTitle] = useState(props.title);
+  const [newBody, setBody] = useState(props.body);
+  
+
   return (
     <article>
     <h2>Update</h2>
     <form onSubmit={(e)=>{e.preventDefault();
       const title = e.target.title.value;
       const body = e.target.body.value;
+      props.onUpdate(title,body);
       
     }}>
-      <p><input type="text" name="title" value={title}/></p>
-      <p><textarea  name="body" value={body}></textarea></p>
+      <p><input type="text" name="title" value={newTitle} onChange={(e)=>{
+        setTitle(e.target.value);
+      }}/></p>
+      <p><textarea name="body" value={newBody} onChange={(e)=>{
+        setBody(e.target.value);
+      }}></textarea></p>
       <input type="submit" value="Update"/>
     </form>
   </article>
@@ -121,7 +130,26 @@ function App() {
       set_id(newId);
     }}></Create>
   } else if (mode === 'UPDATE'){
-    content = <Update></Update>
+    let title, body = null;
+    for (let i = 0; i < topic.length; i++) {
+      if (topic[i].id === _id) {
+        title = topic[i].title;
+        body = topic[i].body;
+      }
+    }
+    
+    content = <Update title={title} body={body} onUpdate={(_title,_body)=>{
+      const newTopics = [...topic];
+      const newTopic = {id:_id , title:_title ,body:_body };      
+      
+      for (let i = 0; i < newTopics.length; i++) {
+        if (newTopics[i].id === _id) {
+          newTopics[i] = newTopic;
+          setTopic(newTopics);
+        }
+      }
+      setMode('READ');
+    }}></Update>
   }
 
 
