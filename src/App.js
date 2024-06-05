@@ -100,7 +100,7 @@ function App() {
   
 
   let content = null;
-  let updateButton = null;
+  let contextShow = null;
 
   if (mode === 'Welcome') {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
@@ -115,9 +115,21 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
-    updateButton = <li><a href="/update" onClick={(e)=>{
+    contextShow = <><li><a href="/update" onClick={(e)=>{
       e.preventDefault(); setMode('UPDATE');}}>Update</a>
-      </li>;
+      </li>
+      <li><input type='button' value='delete' onClick={()=>{
+        const newTopics = [];
+        for( let i=0; i < topic.length; i++ ){
+          if(topic[i].id !== _id ){
+            newTopics.push(topic[i]);
+            
+          }
+        }
+        setTopic(newTopics);
+        setMode("Welcome");
+      }}/>
+        </li></>;
   } else if (mode === 'Create'){
     content = <Create onCreate={(_title, _body)=>{
       // console.log(newId, _title, _body);
@@ -172,7 +184,7 @@ function App() {
           <a href="/create" onClick={(e)=>{e.preventDefault(); setMode('Create'); }}
           >Create</a>
         </li>
-        {updateButton}
+        {contextShow}
       </ul>
 
     </div>
