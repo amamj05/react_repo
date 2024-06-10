@@ -1,23 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import welcome from './img/welcome.jpg';
+import { useState } from 'react';
 
 function Nav(){
     return(
         <article>
-            <ul className='no-dot'>
-                <li><a href='/'>HOME</a></li>
-                <li><a href='/create' onClick={(e)=>{e.preventDefault();}}>글쓰기</a></li>
-            </ul>
-            <hr></hr>
+         
         </article>
     )
 }
 
 function Headers(){
     return(
-        <><h1>~~WELCOME~~</h1>
-        <img src={welcome} width="500px"></img>
+        <>
         </>
 
     )
@@ -38,12 +34,34 @@ function Create(){
 
 
 function App() {
+
+    const [mode, setMode] = useState('HOME');
+    let middleContent = null;
+    if ( mode === 'HOME'){
+        middleContent = <article>
+        <img src={welcome} width="500px"></img>
+        <h1>~~WELCOME~~</h1>
+        </article>
+    }
+    else if(mode === 'Create'){
+        middleContent = <Create></Create>;
+    }
   return (
     <div className="App">
         <h4>리액트 CRUD 연습</h4>
-        <Headers></Headers>
-        <Nav></Nav>
-        <Create></Create>
+        <Headers onChangeMode={()=>{setMode('HOME');}}></Headers>
+        <div>
+        <ul className='no-dot'>
+                <li><a href='/'>HOME</a></li>
+                <li><a href='/create' onClick={(e)=>{e.preventDefault();
+                    setMode('Create');
+                }}>글쓰기</a></li>
+            </ul>
+            {/* <hr></hr> */}
+        </div>
+        
+        {middleContent}
+        
     </div>
   );
 }
