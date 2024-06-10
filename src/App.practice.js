@@ -12,8 +12,8 @@ function Read(props) {
     for (let i = 0; i < props.post.length; i++) {
         // let _title = props.post[i].title;
         // let _body = props.post[i].body;
-
-        _title.push(<li key={props.post[i].id} className='post-li'>{props.post[i].title}</li>);
+        let p = props.post[i];
+        _title.push(<li key={p.id} className='post-li'>{p.title}</li>);
 
         // postList.push({id:i, title:_title, body:_body});
         console.log(_title);
