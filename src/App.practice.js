@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import write from './img/write.jpg';
 import './App.css';
 import welcome from './img/welcome.jpg';
 import { useState } from 'react';
@@ -13,17 +13,22 @@ function Nav(){
 
 function Headers(){
     return(
-        <>
-        </>
-
+        <article>
+         
+        </article>
     )
 }
 
 function Create(){
     return (
         <article>
+            <img src={write} width="500px"></img>
         <h2>게시글 작성</h2>
-        <form>
+        <form onSubmit={(e)=>{e.preventDefault();
+            const title = e.target.title.value;
+            const body = e.target.body.value;
+            
+        }}>
             <p><input type="text" name="title" placeholder='제목'/></p>
             <p><textarea name="body" placeholder='내용을 적어주세요'></textarea></p>
             <input type='submit' value='create'/>
@@ -44,6 +49,7 @@ function App() {
         </article>
     }
     else if(mode === 'Create'){
+        
         middleContent = <Create></Create>;
     }
   return (
