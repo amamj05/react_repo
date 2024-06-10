@@ -39,5 +39,11 @@
 
 
 .no-dot{
+  padding: 0;
   list-style-type: none;
+}
+
+.post-ol{
+padding: 0;
+margin: 5%;
 }
