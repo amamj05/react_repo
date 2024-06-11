@@ -4,25 +4,21 @@ import welcome from './img/welcome.jpg';
 import list from './img/list.png';
 import { useState } from 'react';
 
+
+
 function Read(props) {
 
     const _title = [];
 
-
     for (let i = 0; i < props.post.length; i++) {
-        // let _title = props.post[i].title;
-        // let _body = props.post[i].body;
         let p = props.post[i];
-        _title.push(<li key={p.id} className='post-li'>{p.title}</li>);
-
-        // postList.push({id:i, title:_title, body:_body});
-        console.log(_title);
-
+        _title.push(<a href='#' onClick={(e) => { e.preventDefault(); }}><li key={p.id} className='post-li'
+        >{p.title}</li></a>);
     }
 
     return (
         <article>
-            <img src={list} width="500px"></img>
+            <img src={list} width="400px"></img>
             <ol className='post-ol'>
                 {_title}
             </ol>
@@ -60,7 +56,6 @@ function App() {
 
     const [mode, setMode] = useState('HOME');
     let middleContent = null;
-    let postList = [];
     const post = [{ id: 1, title: 'title111', body: 'body111' },
     { id: 2, title: 'title222', body: 'body222' },
     { id: 3, title: 'title333', body: 'body333' }
