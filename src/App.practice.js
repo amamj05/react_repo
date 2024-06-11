@@ -4,31 +4,37 @@ import './App.css';
 import welcome from './img/welcome.jpg';
 import list from './img/list.png';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
-function Detail(props){
-    
-    return(
+function Detail(props) {
+
+    console.log(props._id);
+    return (
         <div>
             <img src={detail} width="500px"></img>
-        <h2>제목</h2>
-        <p>내용</p>
+            <h2>제목</h2>
+            <p>내용</p>
         </div>
     )
 }
 
 
 function Read(props) {
-
+    
     const _title = [];
+ 
+        console.log('Read 랜더링');
 
     for (let i = 0; i < props.post.length; i++) {
         let p = props.post[i];
-        _title.push(<a href='#' onClick={(e) => {
-             e.preventDefault(); props.onDetail(); }}><li key={p.id} className='post-li'
+        _title.push(<a key={p.id} href='#' onClick={(e) => {
+            e.preventDefault(); props.onDetail(p.id);
+        }}><li  className='post-li'
         >{p.title}</li></a>);
+        console.log(p);
     }
-
+    
     return (
         <article>
             <img src={list} width="400px"></img>
@@ -37,6 +43,7 @@ function Read(props) {
             </ol>
         </article>
     )
+
 }
 
 function Headers() {
@@ -52,8 +59,8 @@ function Create() {
             <h2>게시글 작성</h2>
             <form onSubmit={(e) => {
                 e.preventDefault();
-                const title = e.target.title.value;
-                const body = e.target.body.value;
+                // const title = e.target.title.value;
+                // const body = e.target.body.value;
 
             }}>
                 <p><input type="text" name="title" placeholder='제목' /></p>
@@ -86,11 +93,11 @@ function App() {
     }
     else if (mode === 'READ') {
 
-        middleContent = <Read post={post} onDetail={()=>{setMode('Detail');}}></Read>;
+        middleContent = <Read post={post} onDetail={(_id) => { setMode('Detail');  }}></Read>;
     }
-else if (mode === 'Detail'){
-    middleContent = <Detail></Detail>
-}
+    else if (mode === 'Detail') {
+        middleContent = <Detail></Detail>
+    }
     return (
         <div className='App'>
             <h4>리액트 CRUD 연습</h4>
