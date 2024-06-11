@@ -1,9 +1,21 @@
 import write from './img/write.jpg';
+import detail from './img/detail.jpg';
 import './App.css';
 import welcome from './img/welcome.jpg';
 import list from './img/list.png';
 import { useState } from 'react';
 
+
+function Detail(props){
+    
+    return(
+        <div>
+            <img src={detail} width="500px"></img>
+        <h2>제목</h2>
+        <p>내용</p>
+        </div>
+    )
+}
 
 
 function Read(props) {
@@ -12,7 +24,8 @@ function Read(props) {
 
     for (let i = 0; i < props.post.length; i++) {
         let p = props.post[i];
-        _title.push(<a href='#' onClick={(e) => { e.preventDefault(); }}><li key={p.id} className='post-li'
+        _title.push(<a href='#' onClick={(e) => {
+             e.preventDefault(); props.onDetail(); }}><li key={p.id} className='post-li'
         >{p.title}</li></a>);
     }
 
@@ -73,9 +86,11 @@ function App() {
     }
     else if (mode === 'READ') {
 
-        middleContent = <Read post={post}></Read>;
+        middleContent = <Read post={post} onDetail={()=>{setMode('Detail');}}></Read>;
     }
-
+else if (mode === 'Detail'){
+    middleContent = <Detail></Detail>
+}
     return (
         <div className='App'>
             <h4>리액트 CRUD 연습</h4>
