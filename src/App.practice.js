@@ -7,17 +7,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 
-function Detail(props) {
 
-    console.log(props._id);
-    return (
-        <div>
-            <img src={detail} width="500px"></img>
-            <h2>제목</h2>
-            <p>내용</p>
-        </div>
-    )
-}
 
 
 function Read(props) {
@@ -29,7 +19,7 @@ function Read(props) {
     for (let i = 0; i < props.post.length; i++) {
         let p = props.post[i];
         _title.push(<a key={p.id} href='#' onClick={(e) => {
-            e.preventDefault(); props.onDetail(p.id);
+            e.preventDefault(); props.onDetail();
         }}><li  className='post-li'
         >{p.title}</li></a>);
         console.log(p);
@@ -71,6 +61,18 @@ function Create() {
     )
 }
 
+function Detail(props) {
+
+    console.log(props.post);
+    return (
+        <div>
+            <img src={detail} width="500px"></img>
+            <h2>제목</h2>
+            <p>내용</p>
+        </div>
+    )
+}
+
 
 function App() {
 
@@ -93,10 +95,10 @@ function App() {
     }
     else if (mode === 'READ') {
 
-        middleContent = <Read post={post} onDetail={(_id) => { setMode('Detail');  }}></Read>;
+        middleContent = <Read post={post} onDetail={() => { setMode('Detail');  }}></Read>;
     }
     else if (mode === 'Detail') {
-        middleContent = <Detail></Detail>
+        middleContent = <Detail post={post}></Detail>
     }
     return (
         <div className='App'>

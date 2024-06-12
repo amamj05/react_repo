@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App.practice';
+import App from './App.Router';
 import reportWebVitals from './reportWebVitals';
-// import App from './HookUseCallBack/App';
+import {BrowserRouter} from 'react-router-dom';
+import HomePage from './Home';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <BrowserRouter>
     <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
