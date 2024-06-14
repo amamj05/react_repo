@@ -1,7 +1,7 @@
 // npm install react-router-dom
 
 import './App.css';
-import { Route, Routes, Link, NavLink } from 'react-router-dom';
+import { Route, Routes, Link, NavLink, useParams } from 'react-router-dom';
 import React from 'react';
 
 
@@ -68,11 +68,6 @@ function NavLink_Component(){
     )
 }
 
-const contents = [
-    {id:1, title: 'title111', description: 'description1111'},
-    {id:1, title: 'title222', description: 'description2222'},
-    {id:1, title: 'title333', description: 'description3333'}
-]
 
 
 function Topics(){
@@ -94,6 +89,52 @@ function Topics(){
     )
 }
 
+const contents = [
+    {id:1, title: 'title111', description: 'description1111'},
+    {id:2, title: 'title222', description: 'description2222'},
+    {id:3, title: 'title333', description: 'description3333'}
+]
+
+
+function ArrTopicContents(){
+    let params = useParams();
+    console.log(params, Number(params._id));
+    let nowContents = {title: 'Sorry', description:'Not Found'};
+    for (let i = 0; i < contents.length; i++){
+        if(contents[i].id === Number(params._id)){
+          nowContents =  {title: contents[i].title, description: contents[i].description};
+          break;
+    }
+        }
+    return(
+        <article>
+            <h2>Arr Topic Contents</h2>
+            <p>
+            {nowContents.title}</p><p>
+            {nowContents.description}
+            </p>
+        </article>
+    )
+}
+function ArrTopic(){
+    let _arr = [];
+    for ( let i=0; i<contents.length; i++){
+        _arr.push(<li key={contents[i].id}><NavLink to={"/ArrTopic/"+ contents[i].id}>{contents[i].title}</NavLink></li>);
+    }
+
+    return(
+        <article>
+            <h2>Array 자동 li, route</h2>
+            <ul>
+            {_arr}
+            </ul>
+            <Routes>
+                <Route path='/:_id' element={<ArrTopicContents/>}></Route>
+            </Routes>
+        </article>
+    )
+}
+
 function App() {
     return (
         <div>
@@ -106,6 +147,7 @@ function App() {
                 <li><NavLink to="/HashRouter_Component">HashRouter 컴포넌트</NavLink></li>
                 <li><NavLink to="/NavLink_Component">NavLink 컴포넌트</NavLink></li>
                 <li><NavLink to="/Topics">Topics</NavLink></li>
+                <li><NavLink to="/ArrTopic">ArrTopic</NavLink></li>
             
             </ul>
             <Routes>
@@ -117,6 +159,7 @@ function App() {
                 <Route path="/HashRouter_Component" element={<HashRouter_Component  />}></Route>
                 <Route path="/NavLink_Component" element={<NavLink_Component />}></Route>
                 <Route path="/Topics/*" element={<Topics />}></Route>
+                <Route path="/ArrTopic/*" element={<ArrTopic />}></Route>
                 
             </Routes>
 
