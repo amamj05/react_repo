@@ -1,0 +1,76 @@
+.skeleton-home {
+    position: relative;
+    padding-top: 10%;
+    text-align: center;
+}
+
+.skeleton-homelist {
+    position: relative;
+}
+
+.skeleton-header {
+    top:0cap;
+    padding-top: 12px;
+    padding-right: 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: right;
+}
+
+.no-dot {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(auto, 1fr));
+}
+
+.emoji-box {
+    display: flex;
+    padding-left: 30%;
+    padding-right: 30%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-emoji {
+    grid-area: emoji;
+    width: 70px;
+    height: 70px;
+    background-color: rgb(180, 180, 180);
+    margin: 30px;
+    border-radius: 50%;
+}
+
+.header-emoji {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(180, 180, 180);
+}
+
+h1 {
+    width: 700px;
+    height: 50px;
+    background-color: rgb(180, 180, 180);
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    border-radius: 15px;
+}
+
+li {
+    display: inline;
+}
+
+.textInput {
+    background-color: rgb(180, 180, 180);
+    border: none;
+    width: 200px;
+    height: 31px;
+    padding-right: 43px;
+    visibility: hidden;
+}
+
+ .header-emoji:checked ~ .textInput{visibility: hidden;} .textInput {visibility: visible;} 
