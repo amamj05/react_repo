@@ -1,7 +1,12 @@
 import { Route, Routes, NavLink, useParams } from 'react-router-dom';
 import React from 'react';
 import './Skeleton.css';
-
+import meditation from './img/meditation.jpg';
+import nature from './img/nature.jpg';
+import gathering from './img/gathering.png';
+import test from './img/test.png';
+import sleep from './img/sleep.png';
+import trip from './img/trip.png';
 
 
 function Home() {
@@ -35,6 +40,8 @@ function Header() {
     )
 }
 
+
+
 function HomeList(props) {
 
     let lis = [];
@@ -53,9 +60,26 @@ function HomeList(props) {
 }
 
 function Contents() {
+    const program = [{ id: 1, class:"meditation", img:<img src={meditation} className='card-box'/>},
+        { id: 2, class:"nature", img:<img src={nature} className='card-box'/>},
+        { id: 3, class:"gathering", img:<img src={gathering} className='card-box'/>},
+        { id: 4, class:"test", img:<img src={test} className='card-box'/>},
+        { id: 5, class:"sleep", img:<img src={sleep} className='card-box'/>},
+        { id: 6, class:"trip", img:<img src={trip} className='card-box'/>}
+    ];
+    const {num} = useParams();
+    let lis = [];
+    for (let i = 0; i < 6; i++) {
+        if(num == program[i].id){
+        lis.push(program[i].img);
+    }}
+
     return (
         <div>
-            hahaha
+            <Header></Header>
+            <div className='contents-box'>
+            {lis}
+            </div>
         </div>
     )
 }
@@ -66,7 +90,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home />}></Route>
                 <Route path='/homelist' element={<HomeList id={1} />}></Route>
-                <Route path='/contentslist/:id' element={<Contents />}></Route>
+                <Route path='/contentslist/:num' element={<Contents />}></Route>
             </Routes>
         </div>
 
