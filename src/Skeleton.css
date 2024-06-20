@@ -80,18 +80,19 @@ li {
 
 
 .skeleton-homelist {
-    display: grid;
+    display: grid;  
     /* grid-template-areas: 
     'list-Card list-Card list-Card',
     'list-Card list-Card list-Card',
     'list-Card list-Card list-Card'; */
-    grid-template-columns: 300px 300px 300px;
-    grid-template-rows: 350px 350px 350px;
+    grid-template-columns: repeat(auto-fill,300px 300px 300px);
+    grid-template-rows: repeat(auto-fill);
     margin-top: 90px;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 15%;
+    padding-right: 13%;
     grid-gap: 10%;
-
+    justify-content: center;
+    margin-bottom: 19%;
 }
 
 
