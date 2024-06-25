@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App.Router';
 // import App from './App.classComp';
-import App from './App.Skeleton';
+// import App from './App.Skeleton';
+import App from './App.firstmet';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 
