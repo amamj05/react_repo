@@ -48,3 +48,21 @@ React.createElement(
 {/*  
 <div> history, {javascript code} </div>   이것과 아래가 같음     */}
 React.createElement('div', null, 'hi, ${javascript code}');
+
+
+// ex
+function formatName(user){
+    return user.firstName + ' ' + user.lastName;
+}
+
+const user = { firstName : 'No', lastName: 'Yes'}
+
+const element = ( <h2>hi, {formatName(usesr)}</h2>);
+
+ReactDOM.render( element, document.getElementById('root'));
+
+//user마다 다르게 출력
+function getGreeting(user){
+    if (user){ return <h1>hi, {formatName(usesr)}</h1>; }
+    return <h1>hi, no one</h1>
+}
