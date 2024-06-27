@@ -42,3 +42,9 @@ React.createElement(
     [...children]
 )
 //children은 Element의 자식Element
+
+
+
+{/*  
+<div>history, {name} </div>   이것과 아래가 같음     */}
+React.createElement('div', null, 'hi, ${name}');
