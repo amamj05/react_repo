@@ -271,7 +271,7 @@ function FuncComp6(props) {
     )
 }
 
-
+var count = 0;
 // function style, useEffect
 function FuncComp7(props) {
     var numberState = useState(props.initNumber);
@@ -280,7 +280,14 @@ function FuncComp7(props) {
     const [_Date, setDate] = useState((new Date()).toString());
 
 
+
     //이전 데이터와 지금 데이터를 비교 후 '다를때'만 실행
+    useEffect(()=>{
+        console.log("%c useEffect 'count' " , func6Style);
+        document.title = count;
+    }, [count]);
+    // [count]가 달라졌을때만 실행
+
     useEffect(()=>{
         console.log("%c useEffect 'number' " , func6Style);
         document.title = number;
@@ -294,6 +301,16 @@ function FuncComp7(props) {
         return function(){ console.log("%c useEffect '_Date return'" , func6Style);}
     }, [_Date]);
     // [_date]가 달라졌을때만 실행
+
+
+    // func style, useEffect, componentDidMount(), componentWillUnmount()
+    useEffect(()=>{
+        console.log("%c useEffect 'componentDidMount()' " , func6Style);
+        document.title = number;
+        return function(){ console.log("%c useEffect 'componentWillUnmount()'" , func6Style);}
+    }, []);
+    // 빈배열 - 최초 딱 한번만 실행
+    // componentWillUnmount : 부모 컴포넌트를 이용해서 없앤다? 언마운트 시킨다?
 
 
     console.log("%c render" + (++func6Id), func6Style);
