@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 //function style component
@@ -157,14 +157,18 @@ function FuncComp5(props) {
 
 // class style, 라이프 사이클
 class ClassComp4 extends React.Component {
+
+
     state = {
         number: this.props.initNumber,
         date: (new Date()).toString()
     }
 
+
     //페이지 로드 될때
     componentWillMount(){ console.log("componentWillMount 호출") }
     componentDidMount(){ console.log("componentDidMount 호출") }
+
 
     //리렌더링 될때
     shouldComponentUpdate(nextProps, nextState){
@@ -174,8 +178,8 @@ class ClassComp4 extends React.Component {
     componentWillUpdate(nextProps, nextState){console.log("componentWillUpdate 호출");}
     componentDidUpdate(nextProps, nextState){console.log("componentDidUpdate 호출");}
 
-    render() {
-        console.log("render 호출");
+
+    render() { console.log("render 호출");
         
         return (
             <div>
@@ -199,11 +203,57 @@ class ClassComp4 extends React.Component {
     }
 }
 
+
+// function style, 라이프 사이클
+var func6Id = 0;
+var func6Style = 'color:blue';
+
+function FuncComp6(props) {
+    var numberState = useState(props.initNumber);
+    var number = numberState[0];
+    var setNumber = numberState[1];
+    const [_Date, setDate] = useState((new Date()).toString());
+
+    
+    useEffect(()=>{
+        document.title = `You clicked ${func6Id} times`;
+        console.log("%c useEffect 'A' " + (++func6Id), func6Style);});
+
+    useEffect(()=>{
+        console.log("%c useEffect 'B' " + (++func6Id), func6Style);});
+        
+    console.log("%c render" + (++func6Id), func6Style);
+//  render 호출 후에 실행될 코드 => useEffect
+//  import {useEffect} from 'react';
+//  side effect 줄임말
+
+    return (
+        
+        <div>
+            <h2>function style component</h2>
+
+            <p>Number : {number}</p>
+            <p>DATE : {_Date}</p>
+
+            <input type="button" value="random" onClick={
+                function () {
+                    setNumber(Math.random())}
+            }></input>
+
+            <input type="button" value="Date" onClick={
+                function () {
+                    setDate((new Date()).toString())}
+            }></input>
+        </div>
+    )
+}
+
+
 function App() {
     return (
         <div>
             <h1>Hello</h1>
-            <FuncComp5 initNumber={2}></FuncComp5>
+            <FuncComp6 initNumber={2}></FuncComp6>
             <ClassComp4 initNumber={2}></ClassComp4>
         </div>
     )
@@ -217,12 +267,12 @@ export default App;
 //페이지 로드 될때
 //    componentWillMount
 //    render
-//    componentDidMount
+//    componentDidMount     <=>     useEffect
 
    
 //리렌더링 될때
 //    shouldComponentUpdate =>  return true || false
 //    componentWillUpdate
 //    render
-//    componentDidUpdate
+//    componentDidUpdate     <=>     useEffect
 
