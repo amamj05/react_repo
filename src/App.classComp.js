@@ -155,15 +155,74 @@ function FuncComp5(props) {
     )
 }
 
+// class style, 라이프 사이클
+class ClassComp4 extends React.Component {
+    state = {
+        number: this.props.initNumber,
+        date: (new Date()).toString()
+    }
+
+    //페이지 로드 될때
+    componentWillMount(){ console.log("componentWillMount 호출") }
+    componentDidMount(){ console.log("componentDidMount 호출") }
+
+    //리렌더링 될때
+    shouldComponentUpdate(nextProps, nextState){
+        console.log("shouldComponentUpdate 호출");
+        return true;
+    }
+    componentWillUpdate(nextProps, nextState){console.log("componentWillUpdate 호출");}
+    componentDidUpdate(nextProps, nextState){console.log("componentDidUpdate 호출");}
+
+    render() {
+        console.log("render 호출");
+        
+        return (
+            <div>
+                <h2>class style component</h2>
+
+                <p>Number : {this.state.number}</p>
+                <p>date : {this.state.date}</p>
+
+                <input type="button" value="random" onClick={
+                    function () {
+                        this.setState({ number: Math.random() })
+                    }.bind(this)}></input>
+
+                <input type="button" value="date" onClick={
+                    function () {
+                        this.setState({ date: (new Date()).toString() })
+                    }.bind(this)}></input>
+
+            </div>
+        )
+    }
+}
+
 function App() {
     return (
         <div>
             <h1>Hello</h1>
             <FuncComp5 initNumber={2}></FuncComp5>
-            <ClassComp3 initNumber={2}></ClassComp3>
+            <ClassComp4 initNumber={2}></ClassComp4>
         </div>
     )
 }
 
 
 export default App;
+
+
+
+//페이지 로드 될때
+//    componentWillMount
+//    render
+//    componentDidMount
+
+   
+//리렌더링 될때
+//    shouldComponentUpdate =>  return true || false
+//    componentWillUpdate
+//    render
+//    componentDidUpdate
+
