@@ -155,6 +155,8 @@ function FuncComp5(props) {
     )
 }
 
+
+
 // class style, 라이프 사이클
 class ClassComp4 extends React.Component {
 
@@ -176,7 +178,14 @@ class ClassComp4 extends React.Component {
         return true;
     }
     componentWillUpdate(nextProps, nextState){console.log("componentWillUpdate 호출");}
-    componentDidUpdate(nextProps, nextState){console.log("componentDidUpdate 호출");}
+    componentDidUpdate(prevProps, prevState){
+        console.log("componentDidUpdate 호출");
+        
+        //이전 데이터와 지금 데이터를 비교 후 '다를때'만 실행
+        if (prevProps.number !== this.state.number){
+            document.title = `you clicked ${this.state.number} times`;
+        }
+    }
 
 
     render() { console.log("render 호출");
@@ -227,6 +236,20 @@ function FuncComp6(props) {
 //  import {useEffect} from 'react';
 //  side effect 줄임말
 
+
+//  페이지 사라질때?
+//  호출 순서는 리렌더링된 직후에 호출됨 
+// render18
+// useEffect 'return' 'Clean up' 
+// useEffect 'A' 19
+// useEffect 'B' 20
+// useEffect 
+    useEffect(()=>{
+        console.log("%c useEffect ", func6Style);
+       return function(){ console.log("%c useEffect 'return' 'Clean up' " , func6Style);}
+       //   <=> componentWillUnmount(){};
+    });
+
     return (
         
         <div>
@@ -249,11 +272,57 @@ function FuncComp6(props) {
 }
 
 
+// function style, useEffect
+function FuncComp7(props) {
+    var numberState = useState(props.initNumber);
+    var number = numberState[0];
+    var setNumber = numberState[1];
+    const [_Date, setDate] = useState((new Date()).toString());
+
+
+    //이전 데이터와 지금 데이터를 비교 후 '다를때'만 실행
+    useEffect(()=>{
+        console.log("%c useEffect 'number' " , func6Style);
+        document.title = number;
+        return function(){ console.log("%c useEffect 'number return'" , func6Style);}
+    }, [number]);
+    // [number]가 달라졌을때만 실행
+
+    useEffect(()=>{
+        console.log("%c useEffect '_date' " , func6Style);
+        document.title = _Date;
+        return function(){ console.log("%c useEffect '_Date return'" , func6Style);}
+    }, [_Date]);
+    // [_date]가 달라졌을때만 실행
+
+
+    console.log("%c render" + (++func6Id), func6Style);
+    return (
+        
+        <div>
+            <h2>function style component</h2>
+
+            <p>Number : {number}</p>
+            <p>DATE : {_Date}</p>
+
+            <input type="button" value="random" onClick={
+                function () {
+                    setNumber(Math.random())}
+            }></input>
+
+            <input type="button" value="Date" onClick={
+                function () {
+                    setDate((new Date()).toString())}
+            }></input>
+        </div>
+    )
+}
+
 function App() {
     return (
         <div>
             <h1>Hello</h1>
-            <FuncComp6 initNumber={2}></FuncComp6>
+            <FuncComp7 initNumber={2}></FuncComp7>
             <ClassComp4 initNumber={2}></ClassComp4>
         </div>
     )
@@ -270,7 +339,7 @@ export default App;
 //    componentDidMount     <=>     useEffect
 
    
-//리렌더링 될때
+//리렌더링 될때 = state가 바뀔때
 //    shouldComponentUpdate =>  return true || false
 //    componentWillUpdate
 //    render
