@@ -1,0 +1,15 @@
+### 생성
+git branch (login)
+
+### 목록 확인
+git branch 
+
+### 브랜치 이동
+git switch (login)
+git checkout (login)  
+// checkout은 되돌리는 기능도 있음
+
+
+### 브랜치 생성+이동
+git switch -c (login)     //create
+git checkout -b (login)     //branch
