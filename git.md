@@ -14,6 +14,7 @@ git checkout (login)
 git switch -c (login)     //create
 git checkout -b (login)     //branch
 
+git pull origin dev
 
 ### merge
 1. git switch main
