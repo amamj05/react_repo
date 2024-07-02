@@ -21,6 +21,7 @@ git pull origin dev
 2. git merge (login)
 
 
-(ex) 
+(ex)   
+
 git switch -c feature/login
-### git push origin feature/login
+git push origin feature/login
