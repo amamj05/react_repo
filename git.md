@@ -22,6 +22,5 @@ git pull origin dev
 
 
 (ex)   
-
-git switch -c feature/login
+git switch -c feature/login   
 git push origin feature/login
