@@ -65,6 +65,34 @@ app.get("/", (req, res) => {
     });
   });
 
+  
+app.post("/api/comment", (req, res) => {
+  const { id_comment, body, id_user, id_post } = req.body;
+  const q = "insert into comment(id_comment, body, id_user, id_post) VALUES (?,?,?,?);"
+  mydb.query(q
+    , [id_comment, body, id_user, id_post], (error, results) => {
+      if (error) {
+        return res.status(500).send("쿼리 실행 실패: " + error.message);
+      }
+      res.json(results);
+    });
+});
+
+app.post("/api/edit", (req, res) => {
+  const { title, body, id_post } = req.body;
+  const q = "update post set title = ?, body = ? WHERE id_post = ?;"
+  mydb.query(q
+    , [title, body, id_post], (error, results) => {
+      if (error) {
+        return res.status(500).send("쿼리 실행 실패: " + error.message);
+      }
+      console.log(req.body)
+      res.json(results);
+    });
+});
+
+
+
 app.listen(3333, () => {
     console.log(`DB Server running`)
 })
