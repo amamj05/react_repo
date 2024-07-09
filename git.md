@@ -14,12 +14,13 @@ git checkout (login)
 git switch -c (login)     //create
 git checkout -b (login)     //branch
 
+git pull origin dev
 
 ### merge
 1. git switch main
 2. git merge (login)
 
 
-(ex) 
-git switch -c feature/login
-### git push origin feature/login
+(ex)   
+git switch -c feature/login   
+git push origin feature/login
